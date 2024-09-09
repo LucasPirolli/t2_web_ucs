@@ -1,0 +1,33 @@
+@import "../variables";
+
+.card {
+  display: flex;
+  gap: 16px;
+  width: 25%;
+  align-items: center;
+  > img {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    border-radius: 50%;
+    border: 2px solid $red_cnn;
+    object-fit: cover;
+    object-position: top center;
+  }
+  > .informations {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    > .name {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 18px;
+      color: #282828;
+    }
+    > .description {
+      font-size: 0.875rem;
+      line-height: 20px;
+      color: #000;
+    }
+  }
+}

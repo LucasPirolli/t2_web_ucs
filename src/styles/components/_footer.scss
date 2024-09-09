@@ -1,0 +1,17 @@
+@import "../variables";
+
+.footer {
+  background-color: #0f0f0f;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+
+  .footer-legal {
+    padding-top: 10px;
+
+    p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+}
