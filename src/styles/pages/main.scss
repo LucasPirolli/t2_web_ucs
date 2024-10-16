@@ -1,66 +1,25 @@
 @import "../variables";
 
-.container-fullbanner {
+.container-table {
+  overflow: auto;
   display: flex;
-  padding: 32px 0;
-  height: 316px;
-  background-color: #e6e6e6;
-  position: relative;
-  margin-bottom: 24px;
-  > .image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-  }
-}
-
-.container-main {
-  display: flex;
+  align-items: center;
+  padding: 20px 50px;
   flex-direction: column;
-  max-width: 1320px !important;
-  justify-content: center;
-  margin: 0 auto;
 
-  > .container-block-list {
+  > .container-btn {
+    width: 100%;
     display: flex;
-    gap: 32px;
-    padding-bottom: 32px;
-    justify-content: center;
-    > .list {
-      display: flex;
-      flex-direction: column;
-      gap: 38px;
-    }
+    justify-content: start;
   }
 
-  > .container-blogs-columns {
-    border-top: 1px solid #e6e6e6;
-    margin-top: 32px;
-    padding-top: 32px;
-    padding: 32px 0;
-    width: 100%;
-    > .title {
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 44px;
-      margin: 0 0 12px 0;
-      color: $red_cnn;
-      &::after {
-        content: "";
-        width: 12px;
-        height: 12px;
-        margin-left: 4px;
-        display: inline-block;
-        background-color: $red_cnn;
-      }
-    }
+  table {
+    max-width: 100%;
+    overflow-x: auto;
+    display: flow;
 
-    > .content {
-      display: flex;
-      align-items: center;
-      gap: 32px;
+    svg {
+      cursor: pointer;
     }
   }
 }

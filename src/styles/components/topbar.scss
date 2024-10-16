@@ -16,8 +16,8 @@
 }
 
 .container-topbar {
-  height: 69px;
-  background-color: $black;
+  height: 85px;
+  background-color: #01458e;
   display: flex;
   justify-content: space-between;
   padding: 0 16px;
@@ -29,59 +29,12 @@
     align-items: center;
     display: flex;
     gap: 40px;
+    height: 100%;
     a {
+      height: 100%;
       > .logo {
         height: 100%;
         padding: 0;
-      }
-    }
-  }
-
-  > .navigation {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    > .link {
-      cursor: pointer;
-      &:first-child {
-        position: relative;
-        padding-left: 36px;
-        &::after {
-          content: "";
-          border-radius: 50%;
-          position: absolute;
-          transform: translateX(-50%);
-          box-shadow: 0 4px 10px rgba(204, 0, 0, 0.5),
-            0 0 20px rgba(204, 0, 0, 0);
-          width: 8px;
-          height: 8px;
-          left: 16px;
-          top: calc(50% - 5px);
-          background-color: $red_cnn;
-        }
-        &::before {
-          content: "";
-          width: 32px;
-          height: 32px;
-          left: 0;
-          top: calc(50% - 17px);
-          background-color: $red_cnn;
-          opacity: 0.4;
-          transform: scale(0.5);
-          animation: pulse 1.2s infinite;
-          border-radius: 50%;
-          position: absolute;
-        }
-      }
-      a {
-        padding: 21px 10px;
-        color: $white;
-        font-size: 0.875rem;
-        border-bottom: 4px solid transparent;
-        transition: 0.3s ease border-bottom;
-        &:hover {
-          border-color: $red_cnn;
-        }
       }
     }
   }

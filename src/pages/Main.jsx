@@ -1,91 +1,105 @@
-import Card from "../components/Card";
-import Footer from "../components/Footer";
-import ImageBlock from "../components/ImageBlock";
+import { useEffect, useState } from "react";
 import Topbar from "../components/Topbar";
+import CustomIcon from "../components/Icons.jsx";
 import "../styles/pages/main.scss";
+import { getPosts } from "../services/endpoints";
+import {
+  TableRow,
+  TableHeaderCell,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table,
+  Segment,
+  Loader,
+  Dimmer,
+  Button,
+} from "semantic-ui-react";
+import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  const people = [
-    {
-      name: "Gustavo Uribe",
-      description:
-        "Lula ajusta prioridades para último mês de campanha municipal",
-      imgSrc:
-        "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/02/foto_gustavo_uribe_blog2-e1707507026677.png?w=90&h=118&crop=1",
-    },
-    {
-      name: "Daniela Lima",
-      description:
-        "Câmara aprova PL sobre segurança de dados pessoais no Brasil",
-      imgSrc:
-        "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/02/foto_basilia_rodrigues_blog-e1708465415817.png?w=90&h=118&crop=1",
-    },
-    {
-      name: "Renato Souza",
-      description: "Eleições se aproximam e partidos já começam articulações",
-      imgSrc:
-        "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/03/caiojunqueira2-e1709836937348.png?w=90&h=118&crop=1",
-    },
-    {
-      name: "Natuza Nery",
-      description:
-        "Entenda como as reformas econômicas podem impactar o mercado",
-      imgSrc:
-        "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/05/Teo-Cury.png?w=90&h=118&crop=1",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+
+  const handleTogglePage = (item) => {
+    navigate("/comment", {
+      state: {
+        selectedData: item,
+      },
+    });
+  };
+
+  const fetchDataPost = async () => {
+    try {
+      const response = await getPosts();
+
+      if (response) {
+        setTimeout(() => {
+          setData(response);
+        }, 1500);
+      } else {
+        setData([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataPost();
+  }, []);
 
   return (
     <>
-      <Topbar />
-      <section className="container-fullbanner">
-        <img
-          src="https://tpc.googlesyndication.com/simgad/1720724806653623521"
-          alt="Full Banner"
-          className="image"
-        />
-      </section>
-      <div className="container-main">
-        <section className="container-block-list">
-          <ImageBlock
-            src="https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/Reuters_Direct_Media/BrazilOnlineReportWorldNews/tagreuters.com2024binary_LYNXMPEK750YZ-FILEDIMAGE-e1722996504138.jpg?w=756&h=638&crop=1"
-            alt="O secretário de Estado dos EUA, Antony Blinken"
-            caption='Blinken diz que Edmundo González continua sendo "melhor esperança" à Venezuela'
-            className="first"
-          />
+      {data.length > 0 ? (
+        <>
+          <Topbar />
+          <div className="container-table">
+            <div className="container-btn">
+              <Button primary onClick={() => handleTogglePage()}>TODOS COMENTÁRIOS</Button>
+            </div>
+            <Table singleLine size="small">
+              <TableHeader>
+                <TableRow>
+                  <TableHeaderCell>Id</TableHeaderCell>
+                  <TableHeaderCell>Id Usuário</TableHeaderCell>
+                  <TableHeaderCell>Título</TableHeaderCell>
+                  <TableHeaderCell>Corpo</TableHeaderCell>
+                  <TableHeaderCell>Ação</TableHeaderCell>
+                </TableRow>
+              </TableHeader>
 
-          <div className="list">
-            <ImageBlock
-              src="https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/Reuters_Direct_Media/BrazilOnlineReportBusinessNews/tagreuters.com2024binary_LYNXMPEK560JD-FILEDIMAGE.jpg?w=531&h=298&crop=1"
-              alt="O secretário de Estado dos EUA, Antony Blinken"
-              caption='Blinken diz que Edmundo González continua sendo "melhor esperança" à Venezuela'
-              className="second"
-            />
-            <ImageBlock
-              src="https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/03/Kate-Middleton.jpg?w=531&h=298&crop=1"
-              alt="Kate Middleton em Londres"
-              caption='Kate Middleton finaliza quimioterapia contra o câncer: "Não posso dizer o alívio que é ter concluído'
-              className="third"
-            />
+              <TableBody>
+                {data.map((item, index) => (
+                  <TableRow key={item.id || index}>
+                    <TableCell>{item.id}</TableCell>
+                    <TableCell>{item.userId}</TableCell>
+                    <TableCell>{item.title}</TableCell>
+                    <TableCell>{item.body}</TableCell>
+                    <TableCell>
+                      <EditIcon
+                        sx={{
+                          width: "0.75em",
+                          height: "0.75em",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleTogglePage(item)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
-        </section>
-
-        <section className="container-blogs-columns">
-          <h2 className="title">Blogs e Colunas</h2>
-
-          <div className="content">
-            {people.map((person, index) => (
-              <Card
-                key={index}
-                imgSrc={person.imgSrc}
-                name={person.name}
-                description={person.description}
-              />
-            ))}
-          </div>
-        </section>
-      </div>
-      <Footer />
+        </>
+      ) : (
+        <Segment>
+          <Dimmer active inverted>
+            <Loader active inverted />
+          </Dimmer>
+        </Segment>
+      )}
     </>
   );
 };

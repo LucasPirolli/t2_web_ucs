@@ -4,27 +4,6 @@ import "../styles/components/topbar.scss";
 
 const Topbar = () => {
   const navigate = useNavigate();
-  const menu = [
-    {
-      name: "Ao vivo",
-    },
-    {
-      name: "Política",
-    },
-    {
-      name: "Economia",
-    },
-    {
-      name: "Esportes",
-    },
-    {
-      name: "Pop",
-    },
-    {
-      name: "Cadastre-se",
-      link: "/form",
-    },
-  ];
 
   const handleNavigate = (link) => {
     navigate(link);
@@ -37,23 +16,12 @@ const Topbar = () => {
 
         <a href="/" aria-label="Home">
           <img
-            src="https://www.cnnbrasil.com.br/wp-content/themes/master-theme/assets/img/log-cnn-brasil-transparent.svg"
+            src="https://scontent.fcxj3-1.fna.fbcdn.net/v/t39.30808-1/305272071_391723499822396_8951544844169339986_n.png?stp=dst-png_s200x200&_nc_cat=105&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=iC4vLLmtk68Q7kNvgH112St&_nc_zt=24&_nc_ht=scontent.fcxj3-1.fna&_nc_gid=An5_--L1YGLybkGydAC0zw6&oh=00_AYBnbf-zhpXU0G3cXyqrGdNXQmXaOzZAT0x5-Xy-zCWqWg&oe=6715BA2E"
             alt="logo"
             className="logo"
           />
         </a>
       </div>
-
-      <ul className="navigation">
-        {menu.map((item, index) => (
-          <li key={index} className="link">
-            <a onClick={() => handleNavigate(item.link)} href={item.link}>
-              {item.name}
-            </a>
-          </li>
-        ))}
-      </ul>
-
       <Customicon name="search" width="15" height="15" viewBox="0 0 20 20" />
     </header>
   );
